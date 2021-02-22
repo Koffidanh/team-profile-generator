@@ -18,5 +18,5 @@ test('verify the email of the intern employee is corrected', () => {
 
 test('verify the role of the intern employee is corrected', () => {
     const intern = new Intern();
-    expect(intern.getRole()).toBe(intern.role);
+    expect(intern.getSchoolName()).toBe(intern.schoolName);
 });

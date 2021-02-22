@@ -1,7 +1,7 @@
 const { test, expect } = require("@jest/globals");
 const Manager = require("../lib/manager");
 
-test('verify the name of the manager is intern', () => {
+test('verify the name of the manager is corrected', () => {
     const manager = new Manager();
     expect(manager.getName()).toBe(manager.name);
 });
@@ -18,5 +18,16 @@ test('verify the email of the manager employee is corrected', () => {
 
 test('verify the role of the manager employee is corrected', () => {
     const manager = new Manager();
-    expect(manager.getRole()).toBe(manager.role);
+    expect(manager.getOfficeNumber()).toBe(manager.officeNumber);
+    function phone(officeNumber) {
+        var pass = officeNumber.match(
+            /^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
+        );
+        if (pass) {
+            return true;
+        } else {
+
+        return 'Please enter a valid phone number';
+    }
+}
 });

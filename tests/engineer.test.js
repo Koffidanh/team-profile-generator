@@ -16,7 +16,8 @@ test('verify the email of the engineer employee is corrected', () => {
     expect(engineer.getEmail()).toBe(engineer.email);
 });
 
-test('verify the role of the engineer employee is corrected', () => {
+
+test('verify the role of the engineer github is corrected', () => {
     const engineer = new Engineer();
-    expect(engineer.getRole()).toBe(engineer.role);
+    expect(engineer.getGitHub()).toBe(engineer.gitHub);
 });
