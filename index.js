@@ -14,7 +14,9 @@ const intern = require('./lib/intern')
 const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
 const Engineer = require('./lib/engineer');
+const generatorHtml = require('./lib/generatorHtml');
 
+//
 const teamMemberArray = [];
 
 // function to initialize program
@@ -51,6 +53,7 @@ function init() {
 
         }
     })
+   
 }
 
 //Push the data into the Array
@@ -60,6 +63,7 @@ function init() {
 //Calling the init function
 
 init();
+
 
 //function to generate manager question
 function generateManager() {
@@ -96,7 +100,7 @@ function generateManager() {
         teamMemberArray.push(teamMemberManager)
         console.log(teamMemberArray)
         generateMoreTeams()
-        generateHtml()
+        
     })
 }
 
@@ -134,9 +138,8 @@ function generateEngineer() {
         const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub)
         teamMemberArray.push(teamMemberEngineer)
         console.log(teamMemberArray)
-        writeFileAsync('README.md', generateMarkdown((data)))
         generateMoreTeams()
-        generateHtml()
+        
     })
 }
 
@@ -175,7 +178,7 @@ function generateIntern() {
         teamMemberArray.push(teamMemberIntern)
         console.log(teamMemberArray)
         generateMoreTeams()
-        generateHtml()
+       
     })
 }
 //function for repeating the questions
@@ -213,77 +216,25 @@ function generateMoreTeams() {
                 }
                 else {
                     console.log("Well Done!")
+                   
+                    fs.writeFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
+                        console.log(err)
+                    })
                 }
             })
         }
         else {
             console.log("Well Done!")
+            
+            fs.writeFile(`./dist/test.html`, generatorHtml(JSON.stringify(teamMemberArray) ), function (err) {
+                console.log(err)
+                
+            })
         }
 
 
 
     })
 }
-//Function to generate the html
-function generateHtml() {
-    <!doctype html>
-    <html lang="en">
-    
-    <head>
-        <title>Title</title>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
-        <!-- Bootstrap CSS -->
-        <script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" data-auto-replace-svg="nest"></script>
-        <link rel="stylesheet" href="/dist/index.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    </head>
-    
-    <body>
-        <div class="jumbotron d-flex justify-content-center">
-            <h1 class="display-3">My Team</h1>
-    
-        </div>
-        <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <div class="cardHeader">
-                        <h2>name</h2>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <i class='fas fa-coffee' style='font-size:30px;color:red'></i>
-                            </div>
-                            <div class="col-md-6">
-                                <h4>Manager</h4>
-                            </div>
-                        </div>
-                        
-                        
-                    </div>
-            
-                    
-        </div>
-        
-    
-    
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-            crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            crossorigin="anonymous"></script>
-    </body>
-    
-    </html>
-}
-
-    
+//
 
