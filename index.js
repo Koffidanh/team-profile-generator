@@ -238,8 +238,10 @@ function generateMoreTeams() {
         else {
             console.log("Well Done!")
            console.log(teamMemberArray)
+           
+           console.log(generatorHtml(JSON.stringify(teamMemberArray)))
            //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
-            fs.writeFile(`./dist/test.html`, JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray))) , function (err) {
+            fs.writeFile(`./dist/test.html`, generatorHtml(Object.values(JSON.stringify(teamMemberArray)) ) , function (err) {
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
             })
