@@ -15,7 +15,7 @@ const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
 const Engineer = require('./lib/engineer');
 const Name = require('./lib/name');
-const styleHtml = require('./lib/generatorHtml');
+const generatorHtml = require('./lib/generatorHtml');
 
 //
 const teamMemberArray = [];
@@ -237,9 +237,9 @@ function generateMoreTeams() {
         }
         else {
             console.log("Well Done!")
-           
-           let html = generatorHtml.styleHtml(teamMemberArray)
-            fs.writeFile(`./dist/test.html`, html , function (err) {
+           console.log(teamMemberArray)
+           //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
+            fs.writeFile(`./dist/test.html`, JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray))) , function (err) {
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
             })
