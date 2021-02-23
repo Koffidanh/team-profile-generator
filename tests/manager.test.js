@@ -19,8 +19,8 @@ test('verify the email of the manager employee is corrected', () => {
 test('verify the role of the manager employee is corrected', () => {
     const manager = new Manager();
     expect(manager.getOfficeNumber()).toBe(manager.officeNumber);
-    function phone(officeNumber) {
-        var pass = officeNumber.match(
+    function phone(teamManagerOffice) {
+        var pass = teamManagerOffice.match(
             /^([01]{1})?[-.\s]?\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})\s?((?:#|ext\.?\s?|x\.?\s?){1}(?:\d+)?)?$/i
         );
         if (pass) {

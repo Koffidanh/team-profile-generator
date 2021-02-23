@@ -14,15 +14,22 @@ const intern = require('./lib/intern')
 const Manager = require('./lib/manager');
 const Intern = require('./lib/intern');
 const Engineer = require('./lib/engineer');
-const generatorHtml = require('./lib/generatorHtml');
+const Name = require('./lib/name');
+const styleHtml = require('./lib/generatorHtml');
 
 //
 const teamMemberArray = [];
 
 // function to initialize program
 function init() {
+
     //Prompt questions
     inquirer.prompt([
+        {
+            type: 'input',
+            name: 'teamName',
+            message: 'Enter the team name!',
+        },
         {
             type: 'confirm',
             name: 'teamMember',
@@ -31,6 +38,9 @@ function init() {
             default: true,
         }
     ]).then((answers) => {
+        const teamName = answers.teamName;
+        const teamMemberName = new Name(teamName)
+        teamMemberArray.push(teamMemberName)
         if (answers.teamMember === true) {
             inquirer.prompt([
                 {
@@ -53,7 +63,7 @@ function init() {
 
         }
     })
-   
+
 }
 
 //Push the data into the Array
@@ -67,7 +77,7 @@ init();
 
 //function to generate manager question
 function generateManager() {
-   
+
     inquirer.prompt([
         {
             type: 'input',
@@ -92,21 +102,21 @@ function generateManager() {
     ]).then((answers) => {
         //
 
-         const teamManagerName = answers.managerName;
-         const teamManagerId = answers.managerId;
-         const teamManagerEmail = answers.managerEmail;
-         const teamManagerOffice = answers.managerOfficeNumber;
+        const teamManagerName = answers.managerName;
+        const teamManagerId = answers.managerId;
+        const teamManagerEmail = answers.managerEmail;
+        const teamManagerOffice = answers.managerOfficeNumber;
         const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice)
         teamMemberArray.push(teamMemberManager)
         console.log(teamMemberArray)
         generateMoreTeams()
-        
+
     })
 }
 
 //Function to generaTe engineer
 function generateEngineer() {
-   
+
     inquirer.prompt([
         {
             type: 'input',
@@ -131,21 +141,21 @@ function generateEngineer() {
     ]).then((answers) => {
         //
 
-         const teamEngineerName = answers.engineerName;
-         const teamEngineerId = answers.engineerId;
-         const teamEngineerGitHub = answers.engineerGitHub;
-         const teamEngineerEmail = answers.engineerEmail;
+        const teamEngineerName = answers.engineerName;
+        const teamEngineerId = answers.engineerId;
+        const teamEngineerGitHub = answers.engineerGitHub;
+        const teamEngineerEmail = answers.engineerEmail;
         const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub)
         teamMemberArray.push(teamMemberEngineer)
         console.log(teamMemberArray)
         generateMoreTeams()
-        
+
     })
 }
 
 //Function to generaTe intern
 function generateIntern() {
-   
+
     inquirer.prompt([
         {
             type: 'input',
@@ -170,21 +180,21 @@ function generateIntern() {
     ]).then((answers) => {
         //
 
-         const teamInternName =  answers.internName;
-         const teamInternId =  answers.internId;
-         const teamInternEmail = answers.internEmail;
-         const teamInternSchool = answers.internSchool;
+        const teamInternName = answers.internName;
+        const teamInternId = answers.internId;
+        const teamInternEmail = answers.internEmail;
+        const teamInternSchool = answers.internSchool;
         const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool)
         teamMemberArray.push(teamMemberIntern)
         console.log(teamMemberArray)
         generateMoreTeams()
-       
+
     })
 }
 //function for repeating the questions
 
 function generateMoreTeams() {
-    
+
     inquirer.prompt([
         {
             type: 'confirm',
@@ -216,25 +226,29 @@ function generateMoreTeams() {
                 }
                 else {
                     console.log("Well Done!")
-                   
-                    fs.writeFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
-                        console.log(err)
-                    })
+
+
                 }
+                // fs.writeFile(`./dist/test.html`, generatorHtml(JSON.stringify(teamMemberArray)), function (err) {
+                //     if (!err) { console.log("HTML GENERATED!") }
+                //     else { console.log(err) }
+                // })
             })
         }
         else {
             console.log("Well Done!")
-            
-            fs.writeFile(`./dist/test.html`, generatorHtml(JSON.stringify(teamMemberArray) ), function (err) {
-                console.log(err)
-                
+           
+           let html = generatorHtml.styleHtml(teamMemberArray)
+            fs.writeFile(`./dist/test.html`, html , function (err) {
+                if (!err) { console.log("HTML GENERATED!") }
+                else { console.log(err) }
             })
         }
 
 
 
-    })
+    }).catch((err) => {
+        console.log(err);
+    });
 }
-//
 
