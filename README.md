@@ -16,17 +16,17 @@
  Here is the step by step to run this application.
 
  * First get to the application folder and in index.js and right click on the index.js folder, and then open the terminal.
- ![index](https://github.com/Koffidanh/team-profile-generator/blob/main/Develop/images/index_js.png)
+ ![index](https://github.com/Koffidanh/team-profile-generator/blob/main/images/index_js.png)
  * Second after the terminal opened in the VS Code.
- ![open terminal](https://github.com/Koffidanh/team-profile-generator/blob/main/Develop/images/openterminal.png)
+ ![open terminal](https://github.com/Koffidanh/team-profile-generator/blob/main/images/openterminal.png)
  * Third install the "inquirer module " and "jest module" by typing in the terminal 'npm i'.
- ![install inquirer](https://github.com/Koffidanh/team-profile-generator/blob/main/Develop/images/npmi.png)
+ ![install inquirer](https://github.com/Koffidanh/team-profile-generator/blob/main/images/npmi.png)
  * Fourth after the installation of the 'inquirer module' and 'jest module', type node 'npm test'.This command will run the test in the terminal. Make sure all test passed before running the Index.js code.
- ![run test](https://github.com/Koffidanh/team-profile-generator/blob/main/Develop/images/runtest.png)
+ ![run test](https://github.com/Koffidanh/team-profile-generator/blob/main/images/runtest.png)
  * Fifth after the testing, type node index.js.This command will run the code in the index.js.
- ![run code](https://github.com/Koffidanh/team-profile-generator/blob/main/Develop/images/runcode.png)
+ ![run code](https://github.com/Koffidanh/team-profile-generator/blob/main/images/runcode.png)
  * Sixth step is for the user to answer the displayed questions. After answering those question the 'Team Profile Generator" will self generated the HTML according to the user answer.
- ![answer questions](https://github.com/Koffidanh/team-profile-generator/blob/main/Develop/images/questions.png)
+ ![answer questions](https://github.com/Koffidanh/team-profile-generator/blob/main/images/questions.png)
 
  ## Contribution
  Collaborators: 
