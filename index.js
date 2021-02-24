@@ -52,6 +52,7 @@ function init() {
             ]).then((answers) => {
                 if (answers.role === 'Manager') {
                     generateManager()
+                    teamMemberArray.push('fas fa-coffee')
                     const roleManager = new Employee(answers.role)
                     teamMemberArray.push(roleManager)
                 }
@@ -59,11 +60,13 @@ function init() {
                     const roleEngineer = new Employee(answers.role)
                     teamMemberArray.push(roleEngineer)
                     generateEngineer()
+                    teamMemberArray.push('fas fa-glasses')
                 }
                 else {
                     const roleIntern = new Employee(answers.role)
                     teamMemberArray.push(roleIntern)
                     generateIntern()
+                    teamMemberArray.push('fas fa-graduation-cap')
                 }
             })
 
@@ -117,7 +120,7 @@ function generateManager() {
 
         const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice)
         teamMemberArray.push(teamMemberManager)
-        console.log(teamMemberArray)
+       // console.log(teamMemberArray)
 
 
         generateMoreTeams()
@@ -161,7 +164,7 @@ function generateEngineer() {
 
         const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub)
         teamMemberArray.push(teamMemberEngineer)
-        console.log(teamMemberArray)
+       // console.log(teamMemberArray)
         generateMoreTeams()
 
     })
@@ -202,7 +205,7 @@ function generateIntern() {
         const teamInternSchool = answers.internSchool;
         const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool)
         teamMemberArray.push(teamMemberIntern) 
-        console.log(teamMemberArray)
+       // console.log(teamMemberArray)
         generateMoreTeams()
 
     })
@@ -264,11 +267,11 @@ function generateMoreTeams() {
         }
         else {
             console.log("Well Done!")
-            console.log(teamMemberArray)
+           // console.log(teamMemberArray)
 
-           console.log(generatorHtml(teamMemberArray))
+           //console.log(generatorHtml(teamMemberArray))
            
-               console.log((JSON.stringify(teamMemberArray[0]["name"])))
+               //console.log((JSON.stringify(teamMemberArray[0]["name"])))
                
            
             //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
