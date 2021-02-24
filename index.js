@@ -5,16 +5,16 @@ const jest = require('jest');
 //Calling the fs module
 const fs = require('fs');
 //Calling the employee js
-const employee = require('./lib/employee')
+const Employee = require('./lib/employee')
 //Calling the engineer js
-const engineer = require('./lib/engineer')
+const Engineer = require('./lib/engineer')
 //Calling the intern js
-const intern = require('./lib/intern')
+const Intern = require('./lib/intern')
 //Calling the manager js
 const Manager = require('./lib/manager');
-const Intern = require('./lib/intern');
-const Engineer = require('./lib/engineer');
+//Calling the Team name js
 const Name = require('./lib/name');
+
 const generatorHtml = require('./lib/generatorHtml');
 
 //
@@ -52,11 +52,17 @@ function init() {
             ]).then((answers) => {
                 if (answers.role === 'Manager') {
                     generateManager()
+                    const roleManager = new Employee(answers.role)
+                    teamMemberArray.push(roleManager)
                 }
                 else if (answers.role === 'Engineer') {
+                    const roleEngineer = new Employee(answers.role)
+                    teamMemberArray.push(roleEngineer)
                     generateEngineer()
                 }
                 else {
+                    const roleIntern = new Employee(answers.role)
+                    teamMemberArray.push(roleIntern)
                     generateIntern()
                 }
             })
@@ -102,13 +108,18 @@ function generateManager() {
     ]).then((answers) => {
         //
 
+        const roleManager = new Employee('Manager')
+        teamMemberArray.push(roleManager)
         const teamManagerName = answers.managerName;
         const teamManagerId = answers.managerId;
         const teamManagerEmail = answers.managerEmail;
         const teamManagerOffice = answers.managerOfficeNumber;
+
         const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice)
         teamMemberArray.push(teamMemberManager)
         console.log(teamMemberArray)
+
+
         generateMoreTeams()
 
     })
@@ -141,10 +152,13 @@ function generateEngineer() {
     ]).then((answers) => {
         //
 
+        // const roleEngineer = new Employee('Engineer')
+        // teamMemberArray.push(roleEngineer)
         const teamEngineerName = answers.engineerName;
         const teamEngineerId = answers.engineerId;
         const teamEngineerGitHub = answers.engineerGitHub;
         const teamEngineerEmail = answers.engineerEmail;
+
         const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub)
         teamMemberArray.push(teamMemberEngineer)
         console.log(teamMemberArray)
@@ -178,14 +192,16 @@ function generateIntern() {
             message: 'Enter the intern school name!',
         },
     ]).then((answers) => {
-        //
 
+        //
+        // const roleIntern = new Employee('Intern')
+        // teamMemberArray.push(roleIntern)
         const teamInternName = answers.internName;
         const teamInternId = answers.internId;
         const teamInternEmail = answers.internEmail;
         const teamInternSchool = answers.internSchool;
         const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool)
-        teamMemberArray.push(teamMemberIntern)
+        teamMemberArray.push(teamMemberIntern) 
         console.log(teamMemberArray)
         generateMoreTeams()
 
@@ -216,12 +232,23 @@ function generateMoreTeams() {
                 //Function to run through the role choose
 
                 if (answers.moreRole === 'Manager') {
+
+                    const roleManager = new Employee(answers.moreRole)
+                    teamMemberArray.push(roleManager)
+
                     generateManager()
                 }
                 else if (answers.moreRole === 'Engineer') {
+                    const roleEngineer = new Employee(answers.moreRole)
+                    teamMemberArray.push(roleEngineer) 
                     generateEngineer()
+
                 }
                 else if (answers.moreRole === 'Intern') {
+
+                    const roleIntern = new Employee(answers.moreRole)
+                    teamMemberArray.push(roleIntern) 
+
                     generateIntern()
                 }
                 else {
@@ -237,11 +264,15 @@ function generateMoreTeams() {
         }
         else {
             console.log("Well Done!")
-           console.log(teamMemberArray)
+            console.log(teamMemberArray)
+
+           console.log(generatorHtml(teamMemberArray))
            
-           console.log(generatorHtml(JSON.stringify(teamMemberArray)))
-           //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
-            fs.writeFile(`./dist/test.html`, generatorHtml(Object.values(JSON.stringify(teamMemberArray)) ) , function (err) {
+               console.log((JSON.stringify(teamMemberArray[0]["name"])))
+               
+           
+            //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
+            fs.writeFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
             })
