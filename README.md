@@ -37,7 +37,7 @@
   Test required. 
 ## Video demo
 Here is the demo video.
-![demo](https://github.com/Koffidanh/team-profile-generator/blob/main/images/demo.gif){:height="700px" width="400px"}
+![demo](https://github.com/Koffidanh/team-profile-generator/blob/main/images/demo.gif)
  ## License
  Licensed under the MIT.
   
