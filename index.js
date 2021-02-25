@@ -287,4 +287,3 @@ function generateMoreTeams() {
         console.log(err);
     });
 }
-
