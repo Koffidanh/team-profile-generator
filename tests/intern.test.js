@@ -20,3 +20,7 @@ test('verify the role of the intern employee is corrected', () => {
     const intern = new Intern();
     expect(intern.getSchoolName()).toBe(intern.schoolName);
 });
+test('verify the role of the intern employee is corrected', () => {
+    const intern = new Intern();
+    expect(intern.getRole()).toBe(intern.role);
+});

@@ -21,3 +21,7 @@ test('verify the role of the engineer github is corrected', () => {
     const engineer = new Engineer();
     expect(engineer.getGitHub()).toBe(engineer.gitHub);
 });
+test('verify the role of the engineer github is corrected', () => {
+    const engineer = new Engineer();
+    expect(engineer.getRole()).toBe(engineer.role);
+});

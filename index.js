@@ -52,21 +52,23 @@ function init() {
             ]).then((answers) => {
                 if (answers.role === 'Manager') {
                     generateManager()
-                    teamMemberArray.push('fas fa-coffee')
-                    const roleManager = new Employee(answers.role)
-                    teamMemberArray.push(roleManager)
+                   // teamMemberArray.push('fas fa-coffee')
+                    // const roleManager = new Employee(answers.role)
+                    // teamMemberArray.push(roleManager)
                 }
                 else if (answers.role === 'Engineer') {
-                    const roleEngineer = new Employee(answers.role)
-                    teamMemberArray.push(roleEngineer)
+                    //teamMemberArray.push('fas fa-glasses')
+                    // const roleEngineer = new Employee(answers.role)
+                    // teamMemberArray.push(roleEngineer)
                     generateEngineer()
-                    teamMemberArray.push('fas fa-glasses')
+                    
                 }
                 else {
-                    const roleIntern = new Employee(answers.role)
-                    teamMemberArray.push(roleIntern)
+                    //teamMemberArray.push('fas fa-graduation-cap')
+                    // const roleIntern = new Employee(answers.role)
+                    // teamMemberArray.push(roleIntern)
                     generateIntern()
-                    teamMemberArray.push('fas fa-graduation-cap')
+                   
                 }
             })
 
@@ -112,13 +114,13 @@ function generateManager() {
         //
 
         const roleManager = new Employee('Manager')
-        teamMemberArray.push(roleManager)
+       // teamMemberArray.push(roleManager)
         const teamManagerName = answers.managerName;
         const teamManagerId = answers.managerId;
         const teamManagerEmail = answers.managerEmail;
         const teamManagerOffice = answers.managerOfficeNumber;
-
-        const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice)
+        const teamManagerRole = 'Manager';
+        const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice, teamManagerRole)
         teamMemberArray.push(teamMemberManager)
        // console.log(teamMemberArray)
 
@@ -161,8 +163,8 @@ function generateEngineer() {
         const teamEngineerId = answers.engineerId;
         const teamEngineerGitHub = answers.engineerGitHub;
         const teamEngineerEmail = answers.engineerEmail;
-
-        const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub)
+        const teamEngineerRole = 'Engineer';
+        const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub, teamEngineerRole)
         teamMemberArray.push(teamMemberEngineer)
        // console.log(teamMemberArray)
         generateMoreTeams()
@@ -203,7 +205,8 @@ function generateIntern() {
         const teamInternId = answers.internId;
         const teamInternEmail = answers.internEmail;
         const teamInternSchool = answers.internSchool;
-        const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool)
+        const teamInternRole = 'Intern';
+        const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool,teamInternRole)
         teamMemberArray.push(teamMemberIntern) 
        // console.log(teamMemberArray)
         generateMoreTeams()
@@ -236,21 +239,21 @@ function generateMoreTeams() {
 
                 if (answers.moreRole === 'Manager') {
 
-                    const roleManager = new Employee(answers.moreRole)
-                    teamMemberArray.push(roleManager)
+                    // const roleManager = new Employee(answers.moreRole)
+                    // teamMemberArray.push(roleManager)
 
                     generateManager()
                 }
                 else if (answers.moreRole === 'Engineer') {
-                    const roleEngineer = new Employee(answers.moreRole)
-                    teamMemberArray.push(roleEngineer) 
+                    // const roleEngineer = new Employee(answers.moreRole)
+                    // teamMemberArray.push(roleEngineer) 
                     generateEngineer()
 
                 }
                 else if (answers.moreRole === 'Intern') {
 
-                    const roleIntern = new Employee(answers.moreRole)
-                    teamMemberArray.push(roleIntern) 
+                    // const roleIntern = new Employee(answers.moreRole)
+                    // teamMemberArray.push(roleIntern) 
 
                     generateIntern()
                 }
@@ -267,18 +270,35 @@ function generateMoreTeams() {
         }
         else {
             console.log("Well Done!")
-           // console.log(teamMemberArray)
+            console.log(teamMemberArray)
 
            //console.log(generatorHtml(teamMemberArray))
            
-               //console.log((JSON.stringify(teamMemberArray[0]["name"])))
-               
-           
-            //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
-            fs.writeFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
+               console.log((JSON.stringify(teamMemberArray[0]["name"])))
+               console.log((JSON.stringify(teamMemberArray[0])))
+               console.log(teamMemberArray.length)
+           for (let i = 0; i < teamMemberArray.length; i++) {
+               //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
+            fs.appendFile(`./dist/test.html`, generatorHtml(teamMemberArray[i]), function (err) {
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
+                // if (teamMemberArray[i].role === "Manager") {
+                //     teamMemberArray[i].icon = "fas fa-coffee"
+                //     teamMemberArrayChange = "Office Number: "
+                // }
+                // if (teamMemberArray[i].role === "Engineer") {
+                //     teamMemberArray[i].icon === "fas fa-glasses"
+                //     teamMemberArrayChange = "GitHub: "
+                // }
+                // if (teamMemberArray[i].role === "Intern") {
+                //     teamMemberArray[i].icon === "fas fa-graduation-cap"
+                //     teamMemberArrayChange = "University: "
+                // }
             })
+            
+               
+           }
+           
         }
 
 
