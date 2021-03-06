@@ -25,3 +25,7 @@ test('verify the role of the engineer github is corrected', () => {
     const engineer = new Engineer();
     expect(engineer.getRole()).toBe(engineer.role);
 });
+test('verify the role of the engineer icon is corrected', () => {
+    const engineer = new Engineer();
+    expect(engineer.getIcon()).toBe(engineer.icon);
+});

@@ -24,3 +24,7 @@ test('verify the role of the intern employee is corrected', () => {
     const intern = new Intern();
     expect(intern.getRole()).toBe(intern.role);
 });
+test('verify the role of the intern icon is corrected', () => {
+    const intern = new Intern();
+    expect(intern.getIcon()).toBe(intern.icon);
+});

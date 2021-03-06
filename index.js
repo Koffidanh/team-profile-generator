@@ -15,7 +15,8 @@ const Manager = require('./lib/manager');
 //Calling the Team name js
 const Name = require('./lib/name');
 
-const generatorHtml = require('./lib/generatorHtml');
+//const generatorHtml = require('./lib/generatorHtml');
+const { fileURLToPath } = require('url');
 
 //
 const teamMemberArray = [];
@@ -52,29 +53,29 @@ function init() {
             ]).then((answers) => {
                 if (answers.role === 'Manager') {
                     generateManager()
-                   // teamMemberArray.push('fas fa-coffee')
+                    //    teamMemberArray.push('fas fa-coffee')
                     // const roleManager = new Employee(answers.role)
                     // teamMemberArray.push(roleManager)
                 }
                 else if (answers.role === 'Engineer') {
-                    //teamMemberArray.push('fas fa-glasses')
+                    // teamMemberArray.push('fas fa-glasses')
                     // const roleEngineer = new Employee(answers.role)
                     // teamMemberArray.push(roleEngineer)
                     generateEngineer()
-                    
+
                 }
                 else {
-                    //teamMemberArray.push('fas fa-graduation-cap')
+                    // teamMemberArray.push('fas fa-graduation-cap')
                     // const roleIntern = new Employee(answers.role)
                     // teamMemberArray.push(roleIntern)
                     generateIntern()
-                   
+
                 }
             })
 
         }
     })
-
+    
 }
 
 //Push the data into the Array
@@ -114,15 +115,17 @@ function generateManager() {
         //
 
         const roleManager = new Employee('Manager')
-       // teamMemberArray.push(roleManager)
+        // teamMemberArray.push(roleManager)
         const teamManagerName = answers.managerName;
         const teamManagerId = answers.managerId;
         const teamManagerEmail = answers.managerEmail;
         const teamManagerOffice = answers.managerOfficeNumber;
         const teamManagerRole = 'Manager';
-        const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice, teamManagerRole)
+        const teamManagerIcon = 'fas fa-coffee';
+        const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice, teamManagerRole, teamManagerIcon)
+        //teamMemberManager.push('fas fa-coffee')
         teamMemberArray.push(teamMemberManager)
-       // console.log(teamMemberArray)
+        // console.log(teamMemberArray)
 
 
         generateMoreTeams()
@@ -159,14 +162,17 @@ function generateEngineer() {
 
         // const roleEngineer = new Employee('Engineer')
         // teamMemberArray.push(roleEngineer)
+        //teamMemberArray.push('fas fa-glasses')
         const teamEngineerName = answers.engineerName;
         const teamEngineerId = answers.engineerId;
         const teamEngineerGitHub = answers.engineerGitHub;
         const teamEngineerEmail = answers.engineerEmail;
         const teamEngineerRole = 'Engineer';
-        const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub, teamEngineerRole)
+        const teamEngineerIcon = 'fas fa-glasses';
+        const teamMemberEngineer = new Engineer(teamEngineerName, teamEngineerId, teamEngineerEmail, teamEngineerGitHub, teamEngineerRole, teamEngineerIcon)
+        //teamMemberEngineer.push('fas fa-glasses')
         teamMemberArray.push(teamMemberEngineer)
-       // console.log(teamMemberArray)
+        // console.log(teamMemberArray)
         generateMoreTeams()
 
     })
@@ -201,14 +207,18 @@ function generateIntern() {
         //
         // const roleIntern = new Employee('Intern')
         // teamMemberArray.push(roleIntern)
+        //teamMemberArray.push('fas fa-graduation-cap')
         const teamInternName = answers.internName;
         const teamInternId = answers.internId;
         const teamInternEmail = answers.internEmail;
         const teamInternSchool = answers.internSchool;
         const teamInternRole = 'Intern';
-        const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool,teamInternRole)
-        teamMemberArray.push(teamMemberIntern) 
-       // console.log(teamMemberArray)
+        const teamInternIcon = 'fas fa-graduation-cap';
+        const teamMemberIntern = new Intern(teamInternName, teamInternId, teamInternEmail, teamInternSchool, teamInternRole, teamInternIcon)
+
+        teamMemberArray.push(teamMemberIntern)
+
+        // console.log(teamMemberArray)
         generateMoreTeams()
 
     })
@@ -260,7 +270,6 @@ function generateMoreTeams() {
                 else {
                     console.log("Well Done!")
 
-
                 }
                 // fs.writeFile(`./dist/test.html`, generatorHtml(JSON.stringify(teamMemberArray)), function (err) {
                 //     if (!err) { console.log("HTML GENERATED!") }
@@ -272,33 +281,41 @@ function generateMoreTeams() {
             console.log("Well Done!")
             console.log(teamMemberArray)
 
-           //console.log(generatorHtml(teamMemberArray))
-           
-               console.log((JSON.stringify(teamMemberArray[0]["name"])))
-               console.log((JSON.stringify(teamMemberArray[0])))
-               console.log(teamMemberArray.length)
-           for (let i = 0; i < teamMemberArray.length; i++) {
-               //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
-            fs.appendFile(`./dist/test.html`, generatorHtml(teamMemberArray[i]), function (err) {
+            //console.log(generatorHtml(teamMemberArray))
+
+
+            console.log(teamMemberArray[0]["name"])
+            console.log((JSON.stringify(teamMemberArray[0])))
+            console.log(teamMemberArray.length)
+            //    for (let i = 1; i < teamMemberArray.length; i++) {
+            //        //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
+            //     // fs.appendFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
+            //     //     if (!err) { console.log("HTML GENERATED!") }
+            //         // else { console.log(err) }
+            //     //     // if (teamMemberArray[i].role === "Manager") {
+            //     //     //     teamMemberArray[i].icon = "fas fa-coffee"
+            //     //     //     teamMemberArrayChange = "Office Number: "
+            //     //     //     teamMemberArray.push(teamMemberArrayChange) 
+            //     //     // }
+            //     //     // if (teamMemberArray[i].role === "Engineer") {
+            //     //     //     teamMemberArray[i].icon === "fas fa-glasses"
+            //     //     //     teamMemberArrayChange = "GitHub: "
+            //     //     //     teamMemberArray.push(teamMemberArrayChange)
+            //     //     // }
+            //     //     // if (teamMemberArray[i].role === "Intern") {
+            //     //     //     teamMemberArray[i].icon === "fas fa-graduation-cap"
+            //     //     //     teamMemberArrayChange = "University: "
+            //     //     //     teamMemberArray.push(teamMemberArrayChange)
+            //     //     // }
+            //     // })
+            //     generateTeam (teamMemberArray)
+
+
+            //    }
+            fs.writeFile(`./dist/test.html`, generateTeam(teamMemberArray), function (err) {
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
-                // if (teamMemberArray[i].role === "Manager") {
-                //     teamMemberArray[i].icon = "fas fa-coffee"
-                //     teamMemberArrayChange = "Office Number: "
-                // }
-                // if (teamMemberArray[i].role === "Engineer") {
-                //     teamMemberArray[i].icon === "fas fa-glasses"
-                //     teamMemberArrayChange = "GitHub: "
-                // }
-                // if (teamMemberArray[i].role === "Intern") {
-                //     teamMemberArray[i].icon === "fas fa-graduation-cap"
-                //     teamMemberArrayChange = "University: "
-                // }
-            })
-            
-               
-           }
-           
+            });
         }
 
 
@@ -306,4 +323,119 @@ function generateMoreTeams() {
     }).catch((err) => {
         console.log(err);
     });
+}
+//
+function generateTeam(teamMemberArray) {
+    return `
+        <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+         <title>${teamMemberArray[0].name}</title>
+        <script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" teamMemberArray-auto-replace-svg="nest"></script>
+        <link rel="stylesheet" href="/dist/i.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+            integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+        <style>
+        .cardHeader {
+            width: 100%;
+            height: 100%;
+            background-color: blue;
+            text-align: center;
+            color: white;
+           
+        }
+        .card {
+            padding: 20px;
+        }
+         .col-md-4 {
+                    padding: 10px;
+                }
+        </style>
+    </head>
+    <body>
+    <script>
+    for (let i = 1; i < teamMemberArray.length; i++) {
+        if (teamMemberArray.role === "Manager") {
+            teamMemberArray.icon = "fas fa-coffee"
+            teamMemberArrayChange = "Office Number: "
+        }
+        if (teamMemberArray.role === "Engineer") {
+            teamMemberArray.icon === "fas fa-glasses"
+            teamMemberArrayChange = "GitHub: "
+        }
+        if (teamMemberArray.role === "Intern") {
+            teamMemberArray.icon === "fas fa-graduation-cap"
+            teamMemberArrayChange = "University: "
+        }
+    }
+    </script>
+    <div class="jumbotron d-flex justify-content-center">
+    <h1 class="display-3">${teamMemberArray[0].name}</h1>
+    </div>
+    <div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div id="cardAppend" class="cardHeader">
+          
+               
+            
+        </div>
+    </div>
+    <script>
+   
+    </script>
+    <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+        </body>
+    </html>`
+
+
+   
+
+}
+
+//html
+function html(teamMemberArray) {
+    for (let i = 1; i < teamMemberArray; i++) {
+
+        const card = `<div class="cardFooter">
+    <h4>ID: ${teamMemberArray[i].id}</h4>
+    <h4>Email: <a href = "mailto: ${teamMemberArray[i].email}">${teamMemberArray[i].email}</a></h4>`
+        if (teamMemberArray[i].managerOfficeNumber) {
+            `<h4>Office number:  ${teamMemberArray[i].managerOfficeNumber}</h4>`
+        }
+        if (teamMemberArray[i].engineerGitHub) {
+            ` <h4>GitHub:  <a href="https://github.com/${teamMemberArray[i].engineerGitHub}">https://github.com/${teamMemberArray[i].engineerGitHub}</a>  </h4>`
+        }
+        if (teamMemberArray[i].internSchool) {
+            ` <h4>University:  ${teamMemberArray[i].internSchool}</h4>`
+        }
+        `</div>
+    <h2>${teamMemberArray[i].name}</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <i class=${teamMemberArray[i].icon} style='font-size:30px;color:red'></i>
+            </div>
+            <div class="col-md-6">
+            <h4>${teamMemberArray[i].role}</h4>
+            </div>
+            </div>
+            </div>`
+        document.getElementById("cardAppend").append(card)
+        console.log(card)
+    }
+   
 }

@@ -26,3 +26,8 @@ test('verify the role of the manager employee is corrected', () => {
     expect(manager.getRole()).toBe(manager.role);
    
 });
+test('verify the role of the manager icon is corrected', () => {
+    const manager = new Manager();
+    expect(manager.getIcon()).toBe(manager.icon);
+   
+});
