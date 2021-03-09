@@ -75,7 +75,7 @@ function init() {
 
         }
     })
-    
+
 }
 
 //Push the data into the Array
@@ -114,7 +114,7 @@ function generateManager() {
     ]).then((answers) => {
         //
 
-        const roleManager = new Employee('Manager')
+        //const roleManager = new Employee('Manager')
         // teamMemberArray.push(roleManager)
         const teamManagerName = answers.managerName;
         const teamManagerId = answers.managerId;
@@ -125,9 +125,9 @@ function generateManager() {
         const teamMemberManager = new Manager(teamManagerName, teamManagerId, teamManagerEmail, teamManagerOffice, teamManagerRole, teamManagerIcon)
         //teamMemberManager.push('fas fa-coffee')
         teamMemberArray.push(teamMemberManager)
-        // console.log(teamMemberArray)
+        console.log(teamMemberArray)
 
-
+        //console.log(roleManager)
         generateMoreTeams()
 
     })
@@ -271,10 +271,12 @@ function generateMoreTeams() {
                     console.log("Well Done!")
 
                 }
-                // fs.writeFile(`./dist/test.html`, generatorHtml(JSON.stringify(teamMemberArray)), function (err) {
+                // fs.writeFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
                 //     if (!err) { console.log("HTML GENERATED!") }
                 //     else { console.log(err) }
                 // })
+
+                
             })
         }
         else {
@@ -313,9 +315,16 @@ function generateMoreTeams() {
 
             //    }
             fs.writeFile(`./dist/test.html`, generateTeam(teamMemberArray), function (err) {
+
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
             });
+            //
+            // fs.appendFile(`./dist/test.html`, html(teamMemberArray), function (err) {
+
+            //     if (!err) { console.log("HTMLCARD GENERATED!") }
+            //     else { console.log(err) }
+            // });
         }
 
 
@@ -326,6 +335,7 @@ function generateMoreTeams() {
 }
 //
 function generateTeam(teamMemberArray) {
+    
     return `
         <!DOCTYPE html>
     <html lang="en">
@@ -335,10 +345,12 @@ function generateTeam(teamMemberArray) {
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
          <title>${teamMemberArray[0].name}</title>
         <script src="https://use.fontawesome.com/releases/v5.15.2/js/all.js" teamMemberArray-auto-replace-svg="nest"></script>
-        <link rel="stylesheet" href="/dist/i.css">
+        
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
             integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap" rel="stylesheet">
+        </head>
+        <body>
         <style>
         .cardHeader {
             width: 100%;
@@ -355,24 +367,12 @@ function generateTeam(teamMemberArray) {
                     padding: 10px;
                 }
         </style>
-    </head>
-    <body>
-    <script>
-    for (let i = 1; i < teamMemberArray.length; i++) {
-        if (teamMemberArray.role === "Manager") {
-            teamMemberArray.icon = "fas fa-coffee"
-            teamMemberArrayChange = "Office Number: "
-        }
-        if (teamMemberArray.role === "Engineer") {
-            teamMemberArray.icon === "fas fa-glasses"
-            teamMemberArrayChange = "GitHub: "
-        }
-        if (teamMemberArray.role === "Intern") {
-            teamMemberArray.icon === "fas fa-graduation-cap"
-            teamMemberArrayChange = "University: "
-        }
-    }
-    </script>
+    
+        <script>
+        
+        </script>
+    
+    
     <div class="jumbotron d-flex justify-content-center">
     <h1 class="display-3">${teamMemberArray[0].name}</h1>
     </div>
@@ -380,14 +380,14 @@ function generateTeam(teamMemberArray) {
     <div class="col-md-4">
         <div class="card">
             <div id="cardAppend" class="cardHeader">
-          
-               
+          ${html(teamMemberArray)}
             
+          
         </div>
     </div>
-    <script>
    
-    </script>
+    
+    
     <!-- Optional JavaScript -->
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -403,28 +403,30 @@ function generateTeam(teamMemberArray) {
     </html>`
 
 
-   
+
 
 }
 
 //html
 function html(teamMemberArray) {
-    for (let i = 1; i < teamMemberArray; i++) {
+    let card = [];
 
-        const card = `<div class="cardFooter">
+    for (let i = 1; i < teamMemberArray.length; i++) {
+
+      card  = `<div class="cardFooter">
     <h4>ID: ${teamMemberArray[i].id}</h4>
     <h4>Email: <a href = "mailto: ${teamMemberArray[i].email}">${teamMemberArray[i].email}</a></h4>`
         if (teamMemberArray[i].managerOfficeNumber) {
-            `<h4>Office number:  ${teamMemberArray[i].managerOfficeNumber}</h4>`
+           card += `<h4>Office number:  ${teamMemberArray[i].managerOfficeNumber}</h4>`
         }
         if (teamMemberArray[i].engineerGitHub) {
-            ` <h4>GitHub:  <a href="https://github.com/${teamMemberArray[i].engineerGitHub}">https://github.com/${teamMemberArray[i].engineerGitHub}</a>  </h4>`
+            card +=   ` <h4>GitHub:  <a href="https://github.com/${teamMemberArray[i].engineerGitHub}">https://github.com/${teamMemberArray[i].engineerGitHub}</a>  </h4>`
         }
         if (teamMemberArray[i].internSchool) {
-            ` <h4>University:  ${teamMemberArray[i].internSchool}</h4>`
+            card +=   ` <h4>University:  ${teamMemberArray[i].internSchool}</h4>`
         }
-        `</div>
-    <h2>${teamMemberArray[i].name}</h2>
+     card +=   `</div>
+    
     <div class="row">
         <div class="col-md-6">
             <i class=${teamMemberArray[i].icon} style='font-size:30px;color:red'></i>
@@ -434,8 +436,10 @@ function html(teamMemberArray) {
             </div>
             </div>
             </div>`
-        document.getElementById("cardAppend").append(card)
-        console.log(card)
+        //document.getElementById("cardAppend").append(card)
+return card
     }
-   
+//
+
 }
+
