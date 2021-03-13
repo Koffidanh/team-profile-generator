@@ -271,60 +271,28 @@ function generateMoreTeams() {
                     console.log("Well Done!")
 
                 }
-                // fs.writeFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
-                //     if (!err) { console.log("HTML GENERATED!") }
-                //     else { console.log(err) }
-                // })
 
-                
+
+
             })
         }
         else {
-            console.log("Well Done!")
-            console.log(teamMemberArray)
+            // console.log("Well Done!")
+            // console.log(teamMemberArray)
 
             //console.log(generatorHtml(teamMemberArray))
 
 
-            console.log(teamMemberArray[0]["name"])
-            console.log((JSON.stringify(teamMemberArray[0])))
-            console.log(teamMemberArray.length)
-            //    for (let i = 1; i < teamMemberArray.length; i++) {
-            //        //let html = JSON.stringify(generatorHtml(JSON.stringify(teamMemberArray)))
-            //     // fs.appendFile(`./dist/test.html`, generatorHtml(teamMemberArray), function (err) {
-            //     //     if (!err) { console.log("HTML GENERATED!") }
-            //         // else { console.log(err) }
-            //     //     // if (teamMemberArray[i].role === "Manager") {
-            //     //     //     teamMemberArray[i].icon = "fas fa-coffee"
-            //     //     //     teamMemberArrayChange = "Office Number: "
-            //     //     //     teamMemberArray.push(teamMemberArrayChange) 
-            //     //     // }
-            //     //     // if (teamMemberArray[i].role === "Engineer") {
-            //     //     //     teamMemberArray[i].icon === "fas fa-glasses"
-            //     //     //     teamMemberArrayChange = "GitHub: "
-            //     //     //     teamMemberArray.push(teamMemberArrayChange)
-            //     //     // }
-            //     //     // if (teamMemberArray[i].role === "Intern") {
-            //     //     //     teamMemberArray[i].icon === "fas fa-graduation-cap"
-            //     //     //     teamMemberArrayChange = "University: "
-            //     //     //     teamMemberArray.push(teamMemberArrayChange)
-            //     //     // }
-            //     // })
-            //     generateTeam (teamMemberArray)
+            // console.log(teamMemberArray[0]["name"])
+            // console.log((JSON.stringify(teamMemberArray[0])))
+            // console.log(teamMemberArray.length)
 
-
-            //    }
             fs.writeFile(`./dist/test.html`, generateTeam(teamMemberArray), function (err) {
 
                 if (!err) { console.log("HTML GENERATED!") }
                 else { console.log(err) }
             });
-            //
-            // fs.appendFile(`./dist/test.html`, html(teamMemberArray), function (err) {
 
-            //     if (!err) { console.log("HTMLCARD GENERATED!") }
-            //     else { console.log(err) }
-            // });
         }
 
 
@@ -335,7 +303,7 @@ function generateMoreTeams() {
 }
 //
 function generateTeam(teamMemberArray) {
-    
+
     return `
         <!DOCTYPE html>
     <html lang="en">
@@ -365,6 +333,17 @@ function generateTeam(teamMemberArray) {
         }
          .col-md-4 {
                     padding: 10px;
+                };
+                .cardHeader {
+                    width: 100%;
+                    height: 100%;
+                    background-color: blue;
+                    text-align: center;
+                    color: white;
+                   
+                }
+                .card {
+                    padding: 20px;
                 }
         </style>
     
@@ -376,16 +355,12 @@ function generateTeam(teamMemberArray) {
     <div class="jumbotron d-flex justify-content-center">
     <h1 class="display-3">${teamMemberArray[0].name}</h1>
     </div>
-    <div class="row">
-    <div class="col-md-4">
-        <div class="card">
-            <div id="cardAppend" class="cardHeader">
+    
           ${html(teamMemberArray)}
             
           
-        </div>
-    </div>
-   
+      
+    
     
     
     <!-- Optional JavaScript -->
@@ -410,36 +385,41 @@ function generateTeam(teamMemberArray) {
 //html
 function html(teamMemberArray) {
     let card = [];
-
+    let teamCards = [];
     for (let i = 1; i < teamMemberArray.length; i++) {
 
-      card  = `<div class="cardFooter">
+        card = `
+        <div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="cardHeader"></div>
+      <div class="cardHeader">
+      <h2>${teamMemberArray[i].name}</h2>
+      <div class="row">
+      <div class="col-md-6">
+      <i class='${teamMemberArray[i].icon}' style='font-size:30px;color:red'></i>
+      </div>
+      <div class="col-md-6">
+      <h4>${teamMemberArray[i].role}</h4>
+      </div>
+      </div>
+      </div>
+      <div class="cardFooter">
     <h4>ID: ${teamMemberArray[i].id}</h4>
-    <h4>Email: <a href = "mailto: ${teamMemberArray[i].email}">${teamMemberArray[i].email}</a></h4>`
-        if (teamMemberArray[i].managerOfficeNumber) {
-           card += `<h4>Office number:  ${teamMemberArray[i].managerOfficeNumber}</h4>`
-        }
-        if (teamMemberArray[i].engineerGitHub) {
-            card +=   ` <h4>GitHub:  <a href="https://github.com/${teamMemberArray[i].engineerGitHub}">https://github.com/${teamMemberArray[i].engineerGitHub}</a>  </h4>`
-        }
-        if (teamMemberArray[i].internSchool) {
-            card +=   ` <h4>University:  ${teamMemberArray[i].internSchool}</h4>`
-        }
-     card +=   `</div>
+    <h4>Email: <a href = "mailto: ${teamMemberArray[i].email}">${teamMemberArray[i].email}</a></h4>
+    ${teamMemberArray[i].officeNumber ? `<h4>Office number:  ${teamMemberArray[i].officeNumber}</h4>` : ``}
+    ${teamMemberArray[i].gitHub ? `<h4>GitHub:  <a href="https://github.com/${teamMemberArray[i].gitHub}">https://github.com/${teamMemberArray[i].gitHub}</a></h4>` : ``}
+    ${teamMemberArray[i].schoolName ? `<h4>University:  ${teamMemberArray[i].schoolName}</h4>` : ``}
+    </div>
     
-    <div class="row">
-        <div class="col-md-6">
-            <i class=${teamMemberArray[i].icon} style='font-size:30px;color:red'></i>
-            </div>
-            <div class="col-md-6">
-            <h4>${teamMemberArray[i].role}</h4>
-            </div>
-            </div>
-            </div>`
+    </div>
+        </div>
+        </div>`
         //document.getElementById("cardAppend").append(card)
-return card
-    }
-//
+        teamCards.push(card)
 
+    }
+    //
+    return teamCards.join('');
 }
 
